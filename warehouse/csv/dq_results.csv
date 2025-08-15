@@ -1,0 +1,24 @@
+check,status,detail
+dim_user: user_id not null,PASS,null_count=0
+dim_user_registration: user_registration_id not null,PASS,null_count=0
+dim_user_registration: user_id not null,PASS,null_count=0
+dim_plan: plan_id not null,PASS,null_count=0
+dim_plan: payment_frequency_code not null,PASS,null_count=0
+dim_payment_frequency: payment_frequency_code not null,PASS,null_count=0
+dim_channel: channel_code not null,PASS,null_count=0
+dim_status: status_code not null,PASS,null_count=0
+fact_play_session: play_session_id not null,PASS,null_count=0
+fact_play_session: user_id not null,PASS,null_count=0
+fact_play_session: channel_code not null,PASS,null_count=0
+fact_play_session: status_code not null,PASS,null_count=0
+fact_user_plan: user_registration_id not null,PASS,null_count=0
+fact_user_plan: plan_id not null,PASS,null_count=0
+fact_payment_detail: payment_detail_id not null,PASS,null_count=0
+FK fact_play_session -> dim_user: user_id in child exists in parent user_id,PASS,missing_keys_count=0
+FK fact_play_session -> dim_channel: channel_code in child exists in parent channel_code,PASS,missing_keys_count=0
+FK fact_play_session -> dim_status: status_code in child exists in parent status_code,PASS,missing_keys_count=0
+FK fact_user_plan -> dim_plan: plan_id in child exists in parent plan_id,PASS,missing_keys_count=0
+FK fact_user_plan -> dim_user_registration: user_registration_id in child exists in parent user_registration_id,PASS,missing_keys_count=0
+FK fact_user_plan -> fact_payment_detail: payment_detail_id in child exists in parent payment_detail_id,PASS,missing_keys_count=0
+fact_user_plan: start_date <= end_date,PASS,violations=0
+fact_play_session: start_datetime <= end_datetime,PASS,violations=0
